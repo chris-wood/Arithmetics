@@ -16,6 +16,18 @@
 	// you should not, therefore, declare instance variables in the
 	// public interface and so you should omit the braces.
 }
+@property (weak, nonatomic) IBOutlet UILabel *lastButtonLabel;
+// Outlet properties for the three buttons...
+@property (weak, nonatomic) IBOutlet UIButton *button3;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
+@property (weak, nonatomic) IBOutlet UIButton *button1;
+
+// For the three buttons on the screen...
+- (IBAction)buttonPress3:(id)sender;
+- (IBAction)buttonPress2:(id)sender;
+- (IBAction)buttonPress1:(id)sender;
+
+// For the old hello button...
 - (IBAction)changeGreeting:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
