@@ -107,7 +107,7 @@
                             <constraint firstItem="MvA-rb-G6t" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="GnY-Eu-pyQ"/>
                             <constraint firstItem="5kG-d8-vuY" firstAttribute="top" secondItem="3" secondAttribute="top" constant="152" id="NhU-ng-zwa"/>
                             <constraint firstItem="5kG-d8-vuY" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="RMb-Wr-2Cd"/>
-                            <constraint firstItem="gvy-pK-EVX" firstAttribute="baseline" secondItem="e0b-Sc-weG" secondAttribute="baseline" type="default" id="VVs-H1-m1a"/>
+                            <constraint firstItem="e0b-Sc-weG" firstAttribute="top" secondItem="gvy-pK-EVX" secondAttribute="top" type="default" id="TpI-Qy-xBx"/>
                             <constraint firstItem="yDg-n0-4JP" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="gbI-IE-LOP"/>
                             <constraint firstItem="BfN-OY-DIx" firstAttribute="top" secondItem="MvA-rb-G6t" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="i99-wI-INJ"/>
                             <constraint firstItem="e0b-Sc-weG" firstAttribute="baseline" secondItem="5kG-d8-vuY" secondAttribute="baseline" type="default" id="qtK-VA-eGL"/>
@@ -126,26 +126,6 @@
             </objects>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="cawcode_BLViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/cawcode_BLViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="buttonPress1:"/>
-                <relationship kind="action" name="buttonPress2:"/>
-                <relationship kind="action" name="buttonPress3:"/>
-                <relationship kind="action" name="changeGreeting:"/>
-                <relationship kind="outlet" name="button1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="button2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="button3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="lastButtonLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

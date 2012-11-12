@@ -28,10 +28,17 @@
 // Instance variable for the button text label
 @synthesize lastButtonLabel = _lastButtonLabel;
 
+// Arrays of String buttons and answers
+NSArray *buttonViews;
+NSArray *buttonAnswers;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
+	// Initialize the button view stuff
+	buttonViews = [NSArray arrayWithObjects:@"1+1",@"2+2",@"3+3",nil];
+	buttonAnswers = [NSArray arrayWithObjects:@"2",@"4",@"6",nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,19 +69,23 @@
 		case 1:
 			text = @"one";
 			//[self.button1 setTitle gah...]
-			self.lastButtonLabel.text = @"one";
+			//self.lastButtonLabel.text = @"one";
+			self.lastButtonLabel.text = [buttonViews objectAtIndex:0];
+			self.button1.titleLabel.text = [buttonViews objectAtIndex:0];
 			break;
 			
 		case 2:
 			text = @"two";
 			//[self.button2 setTitle:@"two" forState:UIControlStateNormal];
-			self.lastButtonLabel.text = @"two";
+			self.lastButtonLabel.text = [buttonViews objectAtIndex:1];
+			self.button2.titleLabel.text = [buttonViews objectAtIndex:1];
 			break;
 			
 		case 3:
 			text = @"three";
 			//[self.button1 setTitle:@"three" forState:UIControlStateNormal];
-			self.lastButtonLabel.text = @"three";
+			self.lastButtonLabel.text = [buttonViews objectAtIndex:2];
+			self.button3.titleLabel.text = [buttonViews objectAtIndex:2];
 			break;
 	}
 }
