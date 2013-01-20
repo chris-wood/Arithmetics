@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 CAWCODE. All rights reserved.
 //
 
-#import "cawcode_BLAppDelegate.h"
+#import "ArithmeticsAppDelegate.h"
 
-@implementation cawcode_BLAppDelegate
+@implementation ArithmeticsAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

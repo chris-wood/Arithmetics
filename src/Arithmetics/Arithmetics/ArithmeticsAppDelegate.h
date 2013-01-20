@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface cawcode_BLAppDelegate : UIResponder <UIApplicationDelegate>
+@interface ArithmeticsAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+// TODO
 
 @end

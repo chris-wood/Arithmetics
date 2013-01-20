@@ -7,24 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A06BE6E16ABAB6400FFAAAF /* ArithmeticsBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06BE6D16ABAB6400FFAAAF /* ArithmeticsBlock.m */; };
+		5A06BE7116ABAC4400FFAAAF /* AddBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06BE7016ABAC4400FFAAAF /* AddBlock.m */; };
 		5AAAD964164EE576001DA891 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD963164EE576001DA891 /* UIKit.framework */; };
 		5AAAD966164EE576001DA891 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD965164EE576001DA891 /* Foundation.framework */; };
 		5AAAD968164EE576001DA891 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD967164EE576001DA891 /* CoreGraphics.framework */; };
 		5AAAD96E164EE576001DA891 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD96C164EE576001DA891 /* InfoPlist.strings */; };
 		5AAAD970164EE576001DA891 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAAD96F164EE576001DA891 /* main.m */; };
-		5AAAD974164EE576001DA891 /* cawcode_BLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAAD973164EE576001DA891 /* cawcode_BLAppDelegate.m */; };
+		5AAAD974164EE576001DA891 /* ArithmeticsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAAD973164EE576001DA891 /* ArithmeticsAppDelegate.m */; };
 		5AAAD976164EE576001DA891 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD975164EE576001DA891 /* Default.png */; };
 		5AAAD978164EE576001DA891 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD977164EE576001DA891 /* Default@2x.png */; };
 		5AAAD97A164EE576001DA891 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD979164EE576001DA891 /* Default-568h@2x.png */; };
-		5AAAD97D164EE576001DA891 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD97B164EE576001DA891 /* MainStoryboard_iPhone.storyboard */; };
-		5AAAD980164EE576001DA891 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD97E164EE576001DA891 /* MainStoryboard_iPad.storyboard */; };
-		5AAAD983164EE576001DA891 /* cawcode_BLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAAD982164EE576001DA891 /* cawcode_BLViewController.m */; };
 		5AAAD98B164EE576001DA891 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD98A164EE576001DA891 /* SenTestingKit.framework */; };
 		5AAAD98C164EE576001DA891 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD963164EE576001DA891 /* UIKit.framework */; };
 		5AAAD98D164EE576001DA891 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD965164EE576001DA891 /* Foundation.framework */; };
 		5AAAD995164EE576001DA891 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD993164EE576001DA891 /* InfoPlist.strings */; };
 		5AAAD998164EE576001DA891 /* ArithmeticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAAD997164EE576001DA891 /* ArithmeticsTests.m */; };
-		5AAAD9A2164EE6B1001DA891 /* ArithmeticsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAAD9A1164EE6B1001DA891 /* ArithmeticsView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A06BE6C16ABAB6400FFAAAF /* ArithmeticsBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArithmeticsBlock.h; path = Arithmetics/ArithmeticsBlock.h; sourceTree = "<group>"; };
+		5A06BE6D16ABAB6400FFAAAF /* ArithmeticsBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArithmeticsBlock.m; path = Arithmetics/ArithmeticsBlock.m; sourceTree = "<group>"; };
+		5A06BE6F16ABAC4400FFAAAF /* AddBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBlock.h; path = Arithmetics/AddBlock.h; sourceTree = "<group>"; };
+		5A06BE7016ABAC4400FFAAAF /* AddBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBlock.m; path = Arithmetics/AddBlock.m; sourceTree = "<group>"; };
 		5AAAD95F164EE576001DA891 /* Arithmetics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Arithmetics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AAAD963164EE576001DA891 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5AAAD965164EE576001DA891 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -46,22 +48,17 @@
 		5AAAD96D164EE576001DA891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5AAAD96F164EE576001DA891 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5AAAD971164EE576001DA891 /* Arithmetics-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Arithmetics-Prefix.pch"; sourceTree = "<group>"; };
-		5AAAD972164EE576001DA891 /* cawcode_BLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cawcode_BLAppDelegate.h; sourceTree = "<group>"; };
-		5AAAD973164EE576001DA891 /* cawcode_BLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cawcode_BLAppDelegate.m; sourceTree = "<group>"; };
+		5AAAD972164EE576001DA891 /* ArithmeticsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArithmeticsAppDelegate.h; sourceTree = "<group>"; };
+		5AAAD973164EE576001DA891 /* ArithmeticsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArithmeticsAppDelegate.m; sourceTree = "<group>"; };
 		5AAAD975164EE576001DA891 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		5AAAD977164EE576001DA891 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		5AAAD979164EE576001DA891 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		5AAAD97C164EE576001DA891 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		5AAAD97F164EE576001DA891 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		5AAAD981164EE576001DA891 /* cawcode_BLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cawcode_BLViewController.h; sourceTree = "<group>"; };
-		5AAAD982164EE576001DA891 /* cawcode_BLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cawcode_BLViewController.m; sourceTree = "<group>"; };
 		5AAAD989164EE576001DA891 /* ArithmeticsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArithmeticsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AAAD98A164EE576001DA891 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		5AAAD992164EE576001DA891 /* ArithmeticsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ArithmeticsTests-Info.plist"; sourceTree = "<group>"; };
 		5AAAD994164EE576001DA891 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5AAAD996164EE576001DA891 /* ArithmeticsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArithmeticsTests.h; sourceTree = "<group>"; };
 		5AAAD997164EE576001DA891 /* ArithmeticsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArithmeticsTests.m; sourceTree = "<group>"; };
-		5AAAD9A1164EE6B1001DA891 /* ArithmeticsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArithmeticsView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,13 +118,9 @@
 		5AAAD969164EE576001DA891 /* Arithmetics */ = {
 			isa = PBXGroup;
 			children = (
-				5AAAD972164EE576001DA891 /* cawcode_BLAppDelegate.h */,
-				5AAAD973164EE576001DA891 /* cawcode_BLAppDelegate.m */,
-				5AAAD97B164EE576001DA891 /* MainStoryboard_iPhone.storyboard */,
-				5AAAD97E164EE576001DA891 /* MainStoryboard_iPad.storyboard */,
-				5AAAD981164EE576001DA891 /* cawcode_BLViewController.h */,
-				5AAAD982164EE576001DA891 /* cawcode_BLViewController.m */,
-				5AAAD9A1164EE6B1001DA891 /* ArithmeticsView.xib */,
+				5AF5DAC21655BA5D00218CD6 /* Model */,
+				5AAAD972164EE576001DA891 /* ArithmeticsAppDelegate.h */,
+				5AAAD973164EE576001DA891 /* ArithmeticsAppDelegate.m */,
 				5AAAD96A164EE576001DA891 /* Supporting Files */,
 			);
 			path = Arithmetics;
@@ -164,6 +157,18 @@
 				5AAAD993164EE576001DA891 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5AF5DAC21655BA5D00218CD6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5A06BE6C16ABAB6400FFAAAF /* ArithmeticsBlock.h */,
+				5A06BE6D16ABAB6400FFAAAF /* ArithmeticsBlock.m */,
+				5A06BE6F16ABAC4400FFAAAF /* AddBlock.h */,
+				5A06BE7016ABAC4400FFAAAF /* AddBlock.m */,
+			);
+			name = Model;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,9 +247,6 @@
 				5AAAD976164EE576001DA891 /* Default.png in Resources */,
 				5AAAD978164EE576001DA891 /* Default@2x.png in Resources */,
 				5AAAD97A164EE576001DA891 /* Default-568h@2x.png in Resources */,
-				5AAAD97D164EE576001DA891 /* MainStoryboard_iPhone.storyboard in Resources */,
-				5AAAD980164EE576001DA891 /* MainStoryboard_iPad.storyboard in Resources */,
-				5AAAD9A2164EE6B1001DA891 /* ArithmeticsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,8 +282,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AAAD970164EE576001DA891 /* main.m in Sources */,
-				5AAAD974164EE576001DA891 /* cawcode_BLAppDelegate.m in Sources */,
-				5AAAD983164EE576001DA891 /* cawcode_BLViewController.m in Sources */,
+				5AAAD974164EE576001DA891 /* ArithmeticsAppDelegate.m in Sources */,
+				5A06BE6E16ABAB6400FFAAAF /* ArithmeticsBlock.m in Sources */,
+				5A06BE7116ABAC4400FFAAAF /* AddBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,22 +313,6 @@
 				5AAAD96D164EE576001DA891 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		5AAAD97B164EE576001DA891 /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5AAAD97C164EE576001DA891 /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		5AAAD97E164EE576001DA891 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5AAAD97F164EE576001DA891 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		5AAAD993164EE576001DA891 /* InfoPlist.strings */ = {
@@ -467,6 +454,7 @@
 				5AAAD99D164EE576001DA891 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5AAAD99E164EE576001DA891 /* Build configuration list for PBXNativeTarget "ArithmeticsTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +463,7 @@
 				5AAAD9A0164EE576001DA891 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
