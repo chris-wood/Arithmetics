@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A06BE6E16ABAB6400FFAAAF /* ArithmeticsBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06BE6D16ABAB6400FFAAAF /* ArithmeticsBlock.m */; };
 		5A06BE7116ABAC4400FFAAAF /* AddBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A06BE7016ABAC4400FFAAAF /* AddBlock.m */; };
+		5A3EAE8516E073C5007E05B7 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3EAE8416E073C5007E05B7 /* MainView.xib */; };
 		5AAAD964164EE576001DA891 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD963164EE576001DA891 /* UIKit.framework */; };
 		5AAAD966164EE576001DA891 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD965164EE576001DA891 /* Foundation.framework */; };
 		5AAAD968164EE576001DA891 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAAD967164EE576001DA891 /* CoreGraphics.framework */; };
@@ -40,6 +41,7 @@
 		5A06BE6D16ABAB6400FFAAAF /* ArithmeticsBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArithmeticsBlock.m; path = Arithmetics/ArithmeticsBlock.m; sourceTree = "<group>"; };
 		5A06BE6F16ABAC4400FFAAAF /* AddBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddBlock.h; path = Arithmetics/AddBlock.h; sourceTree = "<group>"; };
 		5A06BE7016ABAC4400FFAAAF /* AddBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddBlock.m; path = Arithmetics/AddBlock.m; sourceTree = "<group>"; };
+		5A3EAE8416E073C5007E05B7 /* MainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		5AAAD95F164EE576001DA891 /* Arithmetics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Arithmetics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AAAD963164EE576001DA891 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5AAAD965164EE576001DA891 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -122,6 +124,7 @@
 				5AAAD972164EE576001DA891 /* ArithmeticsAppDelegate.h */,
 				5AAAD973164EE576001DA891 /* ArithmeticsAppDelegate.m */,
 				5AAAD96A164EE576001DA891 /* Supporting Files */,
+				5A3EAE8416E073C5007E05B7 /* MainView.xib */,
 			);
 			path = Arithmetics;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				5AAAD976164EE576001DA891 /* Default.png in Resources */,
 				5AAAD978164EE576001DA891 /* Default@2x.png in Resources */,
 				5AAAD97A164EE576001DA891 /* Default-568h@2x.png in Resources */,
+				5A3EAE8516E073C5007E05B7 /* MainView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
