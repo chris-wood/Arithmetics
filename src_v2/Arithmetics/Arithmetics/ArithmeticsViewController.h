@@ -18,20 +18,35 @@
 	// The view objects
 	IBOutlet UILabel *scoreField;
 	IBOutlet UILabel *timeField;
+	IBOutlet UILabel *previewTimeField;
+	
+	// Button references...
+	__weak IBOutlet UIButton *button1_out;
+	__weak IBOutlet UIButton *button2_out;
+	__weak IBOutlet UIButton *button6_out;
+	__weak IBOutlet UIButton *button10_out;
+	__weak IBOutlet UIButton *button9_out;
+	__weak IBOutlet UIButton *button8_out;
+	__weak IBOutlet UIButton *button7_out;
+	__weak IBOutlet UIButton *button5_out;
+	__weak IBOutlet UIButton *button4_out;
+	__weak IBOutlet UIButton *button3_out;
+	__weak IBOutlet UIButton *button12_out;
+	__weak IBOutlet UIButton *button11_out;
 	
 	// View objects for buttons
-	IBOutlet UILabel *button1Field;
-	IBOutlet UILabel *button2Field;
-	IBOutlet UILabel *button3Field;
-	IBOutlet UILabel *button4Field;
-	IBOutlet UILabel *button5Field;
-	IBOutlet UILabel *button6Field;
-	IBOutlet UILabel *button7Field;
-	IBOutlet UILabel *button8Field;
-	IBOutlet UILabel *button9Field;
-	IBOutlet UILabel *button10Field;
-	IBOutlet UILabel *button11Field;
-	IBOutlet UILabel *button12Field;
+//	IBOutlet UILabel *button1Field;
+//	IBOutlet UILabel *button2Field;
+//	IBOutlet UILabel *button3Field;
+//	IBOutlet UILabel *button4Field;
+//	IBOutlet UILabel *button5Field;
+//	IBOutlet UILabel *button6Field;
+//	IBOutlet UILabel *button7Field;
+//	IBOutlet UILabel *button8Field;
+//	IBOutlet UILabel *button9Field;
+//	IBOutlet UILabel *button10Field;
+//	IBOutlet UILabel *button11Field;
+//	IBOutlet UILabel *button12Field;
 	
 	// Timer for the game (there is no time limit)
 	NSTimer *previewTimer;
@@ -39,6 +54,10 @@
 	int gameTime;
 	int previewTime;
 	int	PREVIEW_TIME_LIMIT;
+	
+	// Game state variables
+	int numSelected;
+	
 }
 
 - (IBAction)button1:(id)sender;
@@ -53,6 +72,9 @@
 - (IBAction)button10:(id)sender;
 - (IBAction)button11:(id)sender;
 - (IBAction)button12:(id)sender;
+- (IBAction)startButton:(id)sender;
+- (IBAction)resetButton:(id)sender;
+- (IBAction)modeButton:(id)sender;
 
 @end
 
