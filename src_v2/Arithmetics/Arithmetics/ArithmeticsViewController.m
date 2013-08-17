@@ -24,19 +24,22 @@
 		answerFields = [[NSMutableArray alloc] init];
 		buttonState = [[NSMutableArray alloc] init];
 		buttonOutlets = [[NSMutableArray alloc] init];
+		buttonPairMap = [[NSMutableDictionary alloc] init];
 		
 		// Fix the preview timer (default to 5s)
 		previewTime = 0;
 		gameTime = 0;
 		PREVIEW_TIME_LIMIT = 5;
-
-		// TODO: 
+		numActiveButtons = 0;
+		activeButtonLimit = 2; // since everything is paired up
 		
-		// Add the questions and answers
-//		[hiddenFields addObject:@" What is 7 + 7?"];
-//		[answerFields addObject:@" 14"];
-//		[hiddenFields addObject:@"Does Bob make too much money?"];
-//		[answerFields addObject:@"Yes. Of Course."];
+		// Store button states (which ones were referenced)
+		for (int i = 0; i < activeButtonLimit; i++)
+		{
+			[buttonState addObject:[[NSNumber alloc] initWithInt:0]];
+		}
+		
+		NSLog(@"Initialization done.");
 	}
 	
 	return self; // self is an id type (object reference)
@@ -53,6 +56,7 @@
     [super viewDidLoad];
 	
     // Dump the outlets in the collection
+	buttonOutlets = [[NSMutableArray alloc] init];
 	[buttonOutlets addObject:button1_out];
 	[buttonOutlets addObject:button2_out];
 	[buttonOutlets addObject:button3_out];
@@ -66,12 +70,6 @@
 	[buttonOutlets addObject:button11_out];
 	[buttonOutlets addObject:button12_out];
 }
-
-//- (BOOL)application:(UIApplication *)application applicationDidFinishLaunching
-//{
-//	NSLog(@"ASDASDAS");
-//	return true;
-//}
 
 - (void) previewTick:(NSTimer *) timer {
 	previewTime = previewTime - 1;
@@ -128,124 +126,170 @@
 //	[buttonOutlets[bid - 1] setNeedsDisplay];
 }
 
+-(BOOL)buttonsMatch{
+//	int button1 = [buttonState[0] intValue];
+//	int button2 = [buttonState[1] intValue];
+//	if ([buttonPairMap objectForKey:button1] == button2 && [buttonPairMap objectForKey:button2] == button1)	{
+	if ([buttonPairMap objectForKey:buttonState[0]] == buttonState[1] && [buttonPairMap objectForKey:buttonState[1]] == buttonState[0]) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+-(void)handleButtonPress:(int)buttonSource {
+	buttonState[numActiveButtons] = [[NSNumber alloc] initWithInt:buttonSource];
+	numActiveButtons++;
+	if (numActiveButtons == activeButtonLimit)
+	{
+		numActiveButtons = 0;
+		// If match, cool! Keep them open and lock the buttons, otherwise reset to normal and decrement score
+		if ([self buttonsMatch] == true)
+		{
+			NSLog(@"MATCH!!!");
+			[buttonOutlets[[buttonState[0] intValue] - 1] setEnabled:NO];
+			[buttonOutlets[[buttonState[1] intValue] - 1] setEnabled:NO];
+		}
+		else
+		{
+			[buttonOutlets[[buttonState[0] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
+			[buttonOutlets[[buttonState[1] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
+		}
+	}
+}
+
 - (IBAction)button1:(id)sender {
 	// Swap in the button text...
 	[button1_out setTitle:answerFields[0] forState:UIControlStateNormal];
+	[self handleButtonPress:1];
 	
 	// Start the timer that will kill it, eventually...
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:1] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:1] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button2:(id)sender {
 	// Swap in the button text...
 	[button2_out setTitle:answerFields[1] forState:UIControlStateNormal];
+	[self handleButtonPress:2];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:2] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:2] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button3:(id)sender {
 	// Swap in the button text...
 	[button3_out setTitle:answerFields[2] forState:UIControlStateNormal];
+	[self handleButtonPress:3];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:3] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:3] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button4:(id)sender {
 	// Swap in the button text...
 	[button4_out setTitle:answerFields[3] forState:UIControlStateNormal];
+	[self handleButtonPress:4];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:4] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];}
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:4] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
 
 - (IBAction)button5:(id)sender {
 	// Swap in the button text...
 	[button5_out setTitle:answerFields[4] forState:UIControlStateNormal];
+	[self handleButtonPress:5];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:5] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:5] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button6:(id)sender {
 	// Swap in the button text...
 	[button6_out setTitle:answerFields[5] forState:UIControlStateNormal];
+	[self handleButtonPress:6];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:6] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:6] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button7:(id)sender {
 	// Swap in the button text...
 	[button7_out setTitle:answerFields[6] forState:UIControlStateNormal];
+	[self handleButtonPress:7];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:7] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:7] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button8:(id)sender {
 	// Swap in the button text...
 	[button8_out setTitle:answerFields[7] forState:UIControlStateNormal];
+	[self handleButtonPress:8];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:8] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:8] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button9:(id)sender {
 	// Swap in the button text...
 	[button9_out setTitle:answerFields[8] forState:UIControlStateNormal];
+	[self handleButtonPress:9];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:9] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:9] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button10:(id)sender {
 	// Swap in the button text...
 	[button10_out setTitle:answerFields[9] forState:UIControlStateNormal];
+	[self handleButtonPress:10];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:10] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:10] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button11:(id)sender {
 	// Swap in the button text...
 	[button11_out setTitle:answerFields[10] forState:UIControlStateNormal];
+	[self handleButtonPress:11];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:11] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:11] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)button12:(id)sender {
 	// Swap in the button text...
 	[button12_out setTitle:answerFields[11] forState:UIControlStateNormal];
+	[self handleButtonPress:12];
 	
-	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
-	[cb setObject:[NSNumber numberWithInt:12] forKey:@"buttonSource"];
-	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
+//	[cb setObject:[NSNumber numberWithInt:12] forKey:@"buttonSource"];
+//	NSTimer *timer = [NSTimer timerWithTimeInterval:2 target:self selector:@selector(buttonTimer:) userInfo:cb repeats:NO];
+//	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 - (IBAction)startButton:(id)sender {
@@ -265,7 +309,7 @@
     }
 	
 	// Reset the game state
-	numSelected = 0;
+	numActiveButtons = 0;
 	
 	// TODO: invoke the population code here...
 	[hiddenFields addObject:@"1"];
@@ -280,6 +324,21 @@
 	[hiddenFields addObject:@"5"];
 	[hiddenFields addObject:@"6"];
 	[hiddenFields addObject:@"6"];
+	
+	// Associate pairs of buttons
+	buttonPairMap = [[NSMutableDictionary alloc] init];
+	[buttonPairMap setObject:[NSNumber numberWithInt:2] forKey:[NSNumber numberWithInt:1]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:1] forKey:[NSNumber numberWithInt:2]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:4] forKey:[NSNumber numberWithInt:3]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:3] forKey:[NSNumber numberWithInt:4]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:6] forKey:[NSNumber numberWithInt:5]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:5] forKey:[NSNumber numberWithInt:6]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:8] forKey:[NSNumber numberWithInt:7]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:7] forKey:[NSNumber numberWithInt:8]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:10] forKey:[NSNumber numberWithInt:9]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:9] forKey:[NSNumber numberWithInt:10]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:12] forKey:[NSNumber numberWithInt:11]];
+	[buttonPairMap setObject:[NSNumber numberWithInt:11] forKey:[NSNumber numberWithInt:12]];
 	
 	// And the corresponding answers...
 	[answerFields addObject:@"0+1"];
@@ -333,4 +392,10 @@
 - (IBAction)modeButton:(id)sender {
 	NSLog(@"Mode button pressed - does nothing yet...");
 }
+
+- (IBAction)cheatButton:(id)sender {
+	NSLog(@"Cheat button pressed - does nothing yet...");	
+}
+
+
 @end

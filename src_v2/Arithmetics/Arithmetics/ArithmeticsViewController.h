@@ -13,8 +13,11 @@
 	// The model objects
 	NSMutableArray *hiddenFields; // hidden text shown on the button
 	NSMutableArray *answerFields; // matched text shown on button
-	NSMutableArray *buttonState; //
+	NSMutableArray *buttonState; // holds NSBool objects that indicate if a button is "active" - showing the answer
 	NSMutableArray *buttonOutlets; // reference to the grid outlets
+	NSMutableDictionary *buttonPairMap;
+	int numActiveButtons;
+	int activeButtonLimit;
 	
 	// The view objects
 	IBOutlet UILabel *scoreField;
@@ -41,12 +44,10 @@
 	int gameTime;
 	int previewTime;
 	int	PREVIEW_TIME_LIMIT;
-	
-	// Game state variables
-	int numSelected;
-	
+	int score;
 }
 
+-(void)handleButtonPress:(int)buttonSource;
 - (IBAction)button1:(id)sender;
 - (IBAction)button2:(id)sender;
 - (IBAction)button3:(id)sender;
@@ -62,6 +63,7 @@
 - (IBAction)startButton:(id)sender;
 - (IBAction)resetButton:(id)sender;
 - (IBAction)modeButton:(id)sender;
+- (IBAction)cheatButton:(id)sender;
 
 @end
 
