@@ -14,39 +14,26 @@
 	NSMutableArray *hiddenFields; // hidden text shown on the button
 	NSMutableArray *answerFields; // matched text shown on button
 	NSMutableArray *buttonState; //
+	NSMutableArray *buttonOutlets; // reference to the grid outlets
 	
 	// The view objects
 	IBOutlet UILabel *scoreField;
 	IBOutlet UILabel *timeField;
 	IBOutlet UILabel *previewTimeField;
 	
-	// Button references...
-	__weak IBOutlet UIButton *button1_out;
-	__weak IBOutlet UIButton *button2_out;
-	__weak IBOutlet UIButton *button6_out;
-	__weak IBOutlet UIButton *button10_out;
-	__weak IBOutlet UIButton *button9_out;
-	__weak IBOutlet UIButton *button8_out;
-	__weak IBOutlet UIButton *button7_out;
-	__weak IBOutlet UIButton *button5_out;
-	__weak IBOutlet UIButton *button4_out;
-	__weak IBOutlet UIButton *button3_out;
-	__weak IBOutlet UIButton *button12_out;
-	__weak IBOutlet UIButton *button11_out;
-	
-	// View objects for buttons
-//	IBOutlet UILabel *button1Field;
-//	IBOutlet UILabel *button2Field;
-//	IBOutlet UILabel *button3Field;
-//	IBOutlet UILabel *button4Field;
-//	IBOutlet UILabel *button5Field;
-//	IBOutlet UILabel *button6Field;
-//	IBOutlet UILabel *button7Field;
-//	IBOutlet UILabel *button8Field;
-//	IBOutlet UILabel *button9Field;
-//	IBOutlet UILabel *button10Field;
-//	IBOutlet UILabel *button11Field;
-//	IBOutlet UILabel *button12Field;
+	// Button outlets
+	IBOutlet UIButton *button1_out;
+	IBOutlet UIButton *button2_out;
+	IBOutlet UIButton *button3_out;
+	IBOutlet UIButton *button4_out;
+	IBOutlet UIButton *button5_out;
+	IBOutlet UIButton *button6_out;
+	IBOutlet UIButton *button7_out;
+	IBOutlet UIButton *button8_out;
+	IBOutlet UIButton *button9_out;
+	IBOutlet UIButton *button10_out;
+	IBOutlet UIButton *button11_out;
+	IBOutlet UIButton *button12_out;
 	
 	// Timer for the game (there is no time limit)
 	NSTimer *previewTimer;
