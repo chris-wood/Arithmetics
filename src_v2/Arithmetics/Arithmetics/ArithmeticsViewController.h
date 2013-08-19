@@ -18,6 +18,7 @@
 	NSMutableDictionary *buttonPairMap;
 	int numActiveButtons;
 	int activeButtonLimit;
+	int matchedButtons;
 	
 	// The view objects
 	IBOutlet UILabel *scoreField;

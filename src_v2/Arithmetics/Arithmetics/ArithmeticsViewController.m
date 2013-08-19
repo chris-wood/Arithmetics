@@ -31,6 +31,7 @@
 		gameTime = 0;
 		PREVIEW_TIME_LIMIT = 5;
 		numActiveButtons = 0;
+		matchedButtons = 0;
 		activeButtonLimit = 2; // since everything is paired up
 		
 		// Store button states (which ones were referenced)
@@ -140,6 +141,7 @@
 
 -(void)handleButtonPress:(int)buttonSource {
 	buttonState[numActiveButtons] = [[NSNumber alloc] initWithInt:buttonSource];
+	[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor blueColor]];
 	numActiveButtons++;
 	if (numActiveButtons == activeButtonLimit)
 	{
@@ -148,13 +150,28 @@
 		if ([self buttonsMatch] == true)
 		{
 			NSLog(@"MATCH!!!");
+			matchedButtons += 2;
 			[buttonOutlets[[buttonState[0] intValue] - 1] setEnabled:NO];
+			[buttonOutlets[[buttonState[0] intValue] - 1] setBackgroundColor:[UIColor redColor]];
 			[buttonOutlets[[buttonState[1] intValue] - 1] setEnabled:NO];
+			[buttonOutlets[[buttonState[1] intValue] - 1] setBackgroundColor:[UIColor redColor]];
+			
+			if (matchedButtons == [buttonOutlets count])
+			{
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner!"
+																message:[[NSString alloc] initWithFormat: @"Score: %d", score]
+															   delegate:nil
+													  cancelButtonTitle:@"Next"
+													  otherButtonTitles:nil];
+				[alert show];
+			}
 		}
 		else
 		{
 			[buttonOutlets[[buttonState[0] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
+			[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
 			[buttonOutlets[[buttonState[1] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
+			[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
 		}
 	}
 }
@@ -387,6 +404,43 @@
 
 - (IBAction)resetButton:(id)sender {
 	NSLog(@"Reset button pressed.");
+	
+	// TODO: code below is repeated in startButton action - put into an instance method...
+	
+	// Make sure both timers are dead.
+	if (previewTimer != nil)
+    {
+        [previewTimer invalidate];
+        previewTimer = nil;
+    }
+	if (gameTimer != nil)
+    {
+        [gameTimer invalidate];
+        gameTimer = nil;
+    }
+	
+	// Reset times/scores
+	numActiveButtons = 0;
+	gameTime = 0;
+	previewTime = 0;
+	score = 0;
+	matchedButtons = 0;
+	
+	// Update the time/score labels
+	previewTime = PREVIEW_TIME_LIMIT;
+	NSString *intString = [NSString stringWithFormat:@"Preview: %ds", previewTime];
+	[previewTimeField setText:intString];
+	intString = [NSString stringWithFormat:@"Time: 0s"];
+	[timeField setText:intString];
+	intString = [NSString stringWithFormat:@"Score: 0"];
+	[scoreField setText:intString];
+	
+	// Reset the button states for everything
+	for (int i = 0; i < [buttonOutlets count]; i++)
+	{
+		[buttonOutlets[i] setTitle:@"?" forState: UIControlStateNormal];
+		[buttonOutlets[i] setBackgroundColor:[UIColor clearColor]];
+	}
 }
 
 - (IBAction)modeButton:(id)sender {
