@@ -70,6 +70,65 @@
 	[buttonOutlets addObject:button10_out];
 	[buttonOutlets addObject:button11_out];
 	[buttonOutlets addObject:button12_out];
+	
+	// Initialize button press state
+	buttonPressState = [[NSMutableArray alloc] init];
+	for (int i = 0; i < 12; i++)
+	{
+		[buttonPressState addObject:[NSNumber numberWithBool:NO]];
+	}
+	
+	// Create the set of available nodes
+	modes = [[NSArray alloc] initWithObjects:@"Normal", @"Modular", @"Fractions", nil];
+	
+	// Make the picker hidden
+	modePicker.hidden = YES;
+	
+	// Create the subview
+	optionsController = [[ArithmeticsOptionsViewController alloc] initWithNibName:@"ArithmeticsOptionsViewController" bundle:[NSBundle mainBundle]];
+//	[optionsController ]
+}
+
+- (NSInteger)numberOfComponentsInPickerView:
+(UIPickerView *)pickerView
+{
+	return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component
+{
+	return [modes count];
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView
+			 titleForRow:(NSInteger)row
+			forComponent:(NSInteger)component
+{
+	return [modes objectAtIndex:row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
+	  inComponent:(NSInteger)component
+{
+//	float rate = [[exchangeRates objectAtIndex:row] floatValue];
+//	float dollars = [dollarText.text floatValue];
+//	float result = dollars * rate;
+//	NSString *resultString = [[NSString alloc] initWithFormat:
+//							  @"%.2f USD = %.2f %@", dollars, result,
+//							  [countryNames objectAtIndex:row]];
+//	resultLabel.text = resultString;
+	
+	NSString *newMode = [modes objectAtIndex:row];
+	NSString *newLabel = [[NSString alloc] initWithFormat:@"Mode: %s", newMode.cString];
+	[modeField setText:newLabel];
+	
+	NSLog(@"Picked row %d", row);
+//	NSLog(@"new label =  %s", newLabel);
+	modePicker.hidden = YES; // set back to hidden
+}
+
+-(IBAction)textFieldReturn:(id)sender
+{
+    [sender resignFirstResponder];
 }
 
 - (void) previewTick:(NSTimer *) timer {
@@ -140,38 +199,60 @@
 }
 
 -(void)handleButtonPress:(int)buttonSource {
-	buttonState[numActiveButtons] = [[NSNumber alloc] initWithInt:buttonSource];
-	[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor blueColor]];
-	numActiveButtons++;
-	if (numActiveButtons == activeButtonLimit)
+//	if (buttonPressState[buttonSource - 1] == [NSNumber numberWithBool:NO])
 	{
-		numActiveButtons = 0;
-		// If match, cool! Keep them open and lock the buttons, otherwise reset to normal and decrement score
-		if ([self buttonsMatch] == true)
+		buttonPressState[buttonSource - 1] = [NSNumber numberWithBool:YES];
+		buttonState[numActiveButtons] = [[NSNumber alloc] initWithInt:buttonSource];
+		[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor blueColor]];
+		numActiveButtons++;
+		if (numActiveButtons == activeButtonLimit)
 		{
-			NSLog(@"MATCH!!!");
-			matchedButtons += 2;
-			[buttonOutlets[[buttonState[0] intValue] - 1] setEnabled:NO];
-			[buttonOutlets[[buttonState[0] intValue] - 1] setBackgroundColor:[UIColor redColor]];
-			[buttonOutlets[[buttonState[1] intValue] - 1] setEnabled:NO];
-			[buttonOutlets[[buttonState[1] intValue] - 1] setBackgroundColor:[UIColor redColor]];
-			
-			if (matchedButtons == [buttonOutlets count])
+			numActiveButtons = 0;
+			// If match, cool! Keep them open and lock the buttons, otherwise reset to normal and decrement score
+			if ([self buttonsMatch] == true)
 			{
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner!"
-																message:[[NSString alloc] initWithFormat: @"Score: %d", score]
-															   delegate:nil
-													  cancelButtonTitle:@"Next"
-													  otherButtonTitles:nil];
-				[alert show];
+				NSLog(@"MATCH!!!");
+				matchedButtons += 2;
+				[buttonOutlets[[buttonState[0] intValue] - 1] setEnabled:NO];
+				[buttonOutlets[[buttonState[0] intValue] - 1] setBackgroundColor:[UIColor redColor]];
+				[buttonOutlets[[buttonState[1] intValue] - 1] setEnabled:NO];
+				[buttonOutlets[[buttonState[1] intValue] - 1] setBackgroundColor:[UIColor redColor]];
+				
+				// Reset button press state back to false/no
+				buttonPressState[[buttonState[0] intValue] - 1] = [NSNumber numberWithBool:NO];
+				buttonPressState[[buttonState[1] intValue] - 1] = [NSNumber numberWithBool:NO];
+				
+				if (matchedButtons == [buttonOutlets count])
+				{
+					// Make sure both timers are dead.
+					// TODO: put this code in an instance method...
+					if (previewTimer != nil)
+					{
+						[previewTimer invalidate];
+						previewTimer = nil;
+					}
+					if (gameTimer != nil)
+					{
+						[gameTimer invalidate];
+						gameTimer = nil;
+					}
+					
+					// Display an alert to show that the game is over
+					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner!"
+																	message:[[NSString alloc] initWithFormat: @"Score: %d", score]
+																   delegate:nil
+														  cancelButtonTitle:@"Play Again"
+														  otherButtonTitles:nil];
+					[alert show];
+				}
 			}
-		}
-		else
-		{
-			[buttonOutlets[[buttonState[0] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
-			[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
-			[buttonOutlets[[buttonState[1] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
-			[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
+			else
+			{
+				[buttonOutlets[[buttonState[0] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
+				[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
+				[buttonOutlets[[buttonState[1] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
+				[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
+			}
 		}
 	}
 }
@@ -179,6 +260,7 @@
 - (IBAction)button1:(id)sender {
 	// Swap in the button text...
 	[button1_out setTitle:answerFields[0] forState:UIControlStateNormal];
+	buttonPressState[0] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:1];
 	
 	// Start the timer that will kill it, eventually...
@@ -191,6 +273,7 @@
 - (IBAction)button2:(id)sender {
 	// Swap in the button text...
 	[button2_out setTitle:answerFields[1] forState:UIControlStateNormal];
+	buttonPressState[1] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:2];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -202,6 +285,7 @@
 - (IBAction)button3:(id)sender {
 	// Swap in the button text...
 	[button3_out setTitle:answerFields[2] forState:UIControlStateNormal];
+	buttonPressState[2] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:3];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -213,6 +297,7 @@
 - (IBAction)button4:(id)sender {
 	// Swap in the button text...
 	[button4_out setTitle:answerFields[3] forState:UIControlStateNormal];
+	buttonPressState[3] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:4];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -224,6 +309,7 @@
 - (IBAction)button5:(id)sender {
 	// Swap in the button text...
 	[button5_out setTitle:answerFields[4] forState:UIControlStateNormal];
+	buttonPressState[4] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:5];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -235,6 +321,7 @@
 - (IBAction)button6:(id)sender {
 	// Swap in the button text...
 	[button6_out setTitle:answerFields[5] forState:UIControlStateNormal];
+	buttonPressState[5] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:6];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -246,6 +333,7 @@
 - (IBAction)button7:(id)sender {
 	// Swap in the button text...
 	[button7_out setTitle:answerFields[6] forState:UIControlStateNormal];
+	buttonPressState[6] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:7];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -257,6 +345,7 @@
 - (IBAction)button8:(id)sender {
 	// Swap in the button text...
 	[button8_out setTitle:answerFields[7] forState:UIControlStateNormal];
+	buttonPressState[7] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:8];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -268,6 +357,7 @@
 - (IBAction)button9:(id)sender {
 	// Swap in the button text...
 	[button9_out setTitle:answerFields[8] forState:UIControlStateNormal];
+	buttonPressState[8] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:9];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -279,6 +369,7 @@
 - (IBAction)button10:(id)sender {
 	// Swap in the button text...
 	[button10_out setTitle:answerFields[9] forState:UIControlStateNormal];
+	buttonPressState[9] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:10];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -290,6 +381,7 @@
 - (IBAction)button11:(id)sender {
 	// Swap in the button text...
 	[button11_out setTitle:answerFields[10] forState:UIControlStateNormal];
+	buttonPressState[10] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:11];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -301,6 +393,7 @@
 - (IBAction)button12:(id)sender {
 	// Swap in the button text...
 	[button12_out setTitle:answerFields[11] forState:UIControlStateNormal];
+	buttonPressState[11] = [NSNumber numberWithBool:YES];
 	[self handleButtonPress:12];
 	
 //	NSMutableDictionary *cb = [[NSMutableDictionary alloc] init];
@@ -445,10 +538,16 @@
 
 - (IBAction)modeButton:(id)sender {
 	NSLog(@"Mode button pressed - does nothing yet...");
+	modePicker.hidden = NO;
 }
 
 - (IBAction)cheatButton:(id)sender {
 	NSLog(@"Cheat button pressed - does nothing yet...");	
+}
+
+- (IBAction)optionsButton:(id)sender:(id)sender {
+//	[self presentViewController:optionsController animated:YES completion:nil];
+	[self.view addSubview:optionsController.view];
 }
 
 

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ArithmeticsOptionsViewController.h"
 
-@interface ArithmeticsViewController : UIViewController
+@interface ArithmeticsViewController : UIViewController <UIPickerViewDelegate>
 {
 	// The model objects
 	NSMutableArray *hiddenFields; // hidden text shown on the button
 	NSMutableArray *answerFields; // matched text shown on button
 	NSMutableArray *buttonState; // holds NSBool objects that indicate if a button is "active" - showing the answer
+	NSMutableArray *buttonPressState;
 	NSMutableArray *buttonOutlets; // reference to the grid outlets
 	NSMutableDictionary *buttonPairMap;
 	int numActiveButtons;
@@ -21,9 +23,15 @@
 	int matchedButtons;
 	
 	// The view objects
+	IBOutlet UILabel *modeField;
 	IBOutlet UILabel *scoreField;
 	IBOutlet UILabel *timeField;
 	IBOutlet UILabel *previewTimeField;
+	IBOutlet UIPickerView *modePicker;
+	
+	// Available modes...
+	NSArray *modes;
+	ArithmeticsOptionsViewController* optionsController;
 	
 	// Button outlets
 	IBOutlet UIButton *button1_out;
@@ -48,6 +56,8 @@
 	int score;
 }
 
+//@property (strong, nonatomic) IBOutlet UIPickerView *modePicker;
+
 -(void)handleButtonPress:(int)buttonSource;
 - (IBAction)button1:(id)sender;
 - (IBAction)button2:(id)sender;
@@ -65,6 +75,9 @@
 - (IBAction)resetButton:(id)sender;
 - (IBAction)modeButton:(id)sender;
 - (IBAction)cheatButton:(id)sender;
+- (IBAction)optionsButton:(id)sender;
+
+//
 
 @end
 

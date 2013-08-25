@@ -18,6 +18,8 @@
 		5A2F149917BCA20200206136 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A2F149817BCA20200206136 /* Default-568h@2x.png */; };
 		5A2F149C17BCA20200206136 /* ArithmeticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F149B17BCA20200206136 /* ArithmeticsViewController.m */; };
 		5A2F149F17BCA20200206136 /* ArithmeticsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A2F149D17BCA20200206136 /* ArithmeticsViewController.xib */; };
+		5A310D5617C9CDF300F94A7A /* ArithmeticsOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A310D5417C9CDF300F94A7A /* ArithmeticsOptionsViewController.m */; };
+		5A310D5717C9CDF300F94A7A /* ArithmeticsOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A310D5517C9CDF300F94A7A /* ArithmeticsOptionsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,9 @@
 		5A2F149A17BCA20200206136 /* ArithmeticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArithmeticsViewController.h; sourceTree = "<group>"; };
 		5A2F149B17BCA20200206136 /* ArithmeticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArithmeticsViewController.m; sourceTree = "<group>"; };
 		5A2F149E17BCA20200206136 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ArithmeticsViewController.xib; sourceTree = "<group>"; };
+		5A310D5317C9CDF300F94A7A /* ArithmeticsOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArithmeticsOptionsViewController.h; sourceTree = "<group>"; };
+		5A310D5417C9CDF300F94A7A /* ArithmeticsOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArithmeticsOptionsViewController.m; sourceTree = "<group>"; };
+		5A310D5517C9CDF300F94A7A /* ArithmeticsOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArithmeticsOptionsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +93,9 @@
 				5A2F149A17BCA20200206136 /* ArithmeticsViewController.h */,
 				5A2F149B17BCA20200206136 /* ArithmeticsViewController.m */,
 				5A2F149D17BCA20200206136 /* ArithmeticsViewController.xib */,
+				5A310D5317C9CDF300F94A7A /* ArithmeticsOptionsViewController.h */,
+				5A310D5417C9CDF300F94A7A /* ArithmeticsOptionsViewController.m */,
+				5A310D5517C9CDF300F94A7A /* ArithmeticsOptionsViewController.xib */,
 				5A2F148917BCA20200206136 /* Supporting Files */,
 			);
 			path = Arithmetics;
@@ -164,6 +172,7 @@
 				5A2F149717BCA20200206136 /* Default@2x.png in Resources */,
 				5A2F149917BCA20200206136 /* Default-568h@2x.png in Resources */,
 				5A2F149F17BCA20200206136 /* ArithmeticsViewController.xib in Resources */,
+				5A310D5717C9CDF300F94A7A /* ArithmeticsOptionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +186,7 @@
 				5A2F148F17BCA20200206136 /* main.m in Sources */,
 				5A2F149317BCA20200206136 /* ArithmeticsAppDelegate.m in Sources */,
 				5A2F149C17BCA20200206136 /* ArithmeticsViewController.m in Sources */,
+				5A310D5617C9CDF300F94A7A /* ArithmeticsOptionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +309,7 @@
 				5A2F14A417BCA20200206136 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
