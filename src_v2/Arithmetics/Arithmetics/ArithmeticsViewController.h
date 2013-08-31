@@ -16,6 +16,7 @@
 	NSMutableArray *answerFields; // matched text shown on button
 	NSMutableArray *buttonState; // holds NSBool objects that indicate if a button is "active" - showing the answer
 	NSMutableArray *buttonPressState;
+	NSMutableArray *buttonMatchState;
 	NSMutableArray *buttonOutlets; // reference to the grid outlets
 	NSMutableDictionary *buttonPairMap;
 	int numActiveButtons;
@@ -53,6 +54,7 @@
 	int gameTime;
 	int previewTime;
 	int	PREVIEW_TIME_LIMIT;
+	int GAME_TIME_LIMIT;
 	int score;
 }
 
@@ -73,8 +75,8 @@
 - (IBAction)button12:(id)sender;
 - (IBAction)startButton:(id)sender;
 - (IBAction)resetButton:(id)sender;
-- (IBAction)modeButton:(id)sender;
-- (IBAction)cheatButton:(id)sender;
+- (IBAction)cheatButtonDown:(id)sender;
+- (IBAction)cheatButtonUp:(id)sender;
 - (IBAction)optionsButton:(id)sender;
 
 //

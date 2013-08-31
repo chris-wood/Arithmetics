@@ -30,6 +30,7 @@
 		previewTime = 0;
 		gameTime = 0;
 		PREVIEW_TIME_LIMIT = 5;
+		GAME_TIME_LIMIT = 10;
 		numActiveButtons = 0;
 		matchedButtons = 0;
 		activeButtonLimit = 2; // since everything is paired up
@@ -73,9 +74,11 @@
 	
 	// Initialize button press state
 	buttonPressState = [[NSMutableArray alloc] init];
+	buttonMatchState = [[NSMutableArray alloc] init];
 	for (int i = 0; i < 12; i++)
 	{
 		[buttonPressState addObject:[NSNumber numberWithBool:NO]];
+		[buttonMatchState addObject:[NSNumber numberWithBool:NO]];
 	}
 	
 	// Create the set of available nodes
@@ -131,6 +134,52 @@ numberOfRowsInComponent:(NSInteger)component
     [sender resignFirstResponder];
 }
 
+- (void)normalGen:(int)max {
+//	pairs = []
+//	count = 0
+//	target = n / 2
+//	while count < target:
+//		x = random.randint(0, target * 5)
+//		if not (x in pairs):
+//			pairs.append([x, x]) # just a duplicate
+//			count = count + 1
+//			return pairs
+	
+	int count = 0;
+	NSMutableArray* targets = [[NSMutableArray alloc] init]; // value that each button equates to
+	while (count < 6) // MAGIC NUMBER
+	{
+		int randNum = rand() % max;
+		bool found = false;
+		for (int i = 0; i < [targets count]; i++)
+		{
+			if (targets[i] == [NSNumber numberWithInt:randNum])
+			{
+				found = true;
+			}
+		}
+		if (found == false)
+		{
+			[targets addObject:[NSNumber numberWithInt:randNum]];
+			
+			// Pick four different numbers and operations and work backwards...
+			NSMutableArray* operands = [[NSMutableArray alloc] init];
+			int r1 = rand() % max;
+			int r2 = rand() % max;
+			int r3 = rand() % max;
+			int r4 = rand() % max;
+			
+			
+			
+			count = count + 1;
+		}
+	}
+	
+//	// And the corresponding answers...
+//	[buttonPairMap setObject:[NSNumber numberWithInt:11] forKey:[NSNumber numberWithInt:12]];
+//	[answerFields addObject:@"0+1"];
+}
+
 - (void) previewTick:(NSTimer *) timer {
 	previewTime = previewTime - 1;
 	NSLog(@"Updating time...");
@@ -155,7 +204,7 @@ numberOfRowsInComponent:(NSInteger)component
 		}
 			
 		// Start the timer to fire every one second
-		gameTime = 0;
+		gameTime = GAME_TIME_LIMIT;
 		gameTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(gameTick:) userInfo:nil repeats:YES];
 		[[NSRunLoop mainRunLoop] addTimer:gameTimer forMode:NSRunLoopCommonModes];
 	}
@@ -166,10 +215,33 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 - (void) gameTick:(NSTimer *) timer {
-	gameTime = gameTime + 1;
+	gameTime = gameTime - 1;
 	NSLog(@"Updating time...");
 	NSString *intString = [NSString stringWithFormat:@"Time: %ds", gameTime];
 	[timeField setText:intString];
+	if (gameTime == 0)
+	{
+		// Make sure both timers are dead.
+		// TODO: put this code in an instance method...
+		if (previewTimer != nil)
+		{
+			[previewTimer invalidate];
+			previewTimer = nil;
+		}
+		if (gameTimer != nil)
+		{
+			[gameTimer invalidate];
+			gameTimer = nil;
+		}
+		
+		// Display an alert to show that the game is over
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Over!"
+														message:[[NSString alloc] initWithFormat: @"Score: %d", score]
+													   delegate:nil
+											  cancelButtonTitle:@"Play Again"
+											  otherButtonTitles:nil];
+		[alert show];
+	}
 }
 
 - (void) buttonTimer:(NSTimer *) timer {
@@ -198,6 +270,11 @@ numberOfRowsInComponent:(NSInteger)component
 	}
 }
 
+-(void)updateScore {
+	NSString *intString = [NSString stringWithFormat:@"Score: %d", score];
+	[scoreField setText:intString];
+}
+
 -(void)handleButtonPress:(int)buttonSource {
 //	if (buttonPressState[buttonSource - 1] == [NSNumber numberWithBool:NO])
 	{
@@ -212,6 +289,12 @@ numberOfRowsInComponent:(NSInteger)component
 			if ([self buttonsMatch] == true)
 			{
 				NSLog(@"MATCH!!!");
+				
+				// Update the score
+				score = score + 1;
+				[self updateScore];
+				
+				// Fix the buttons so that they can't be pressed anymore
 				matchedButtons += 2;
 				[buttonOutlets[[buttonState[0] intValue] - 1] setEnabled:NO];
 				[buttonOutlets[[buttonState[0] intValue] - 1] setBackgroundColor:[UIColor redColor]];
@@ -221,37 +304,58 @@ numberOfRowsInComponent:(NSInteger)component
 				// Reset button press state back to false/no
 				buttonPressState[[buttonState[0] intValue] - 1] = [NSNumber numberWithBool:NO];
 				buttonPressState[[buttonState[1] intValue] - 1] = [NSNumber numberWithBool:NO];
+				buttonMatchState[[buttonState[0] intValue] - 1] = [NSNumber numberWithBool:YES];
+				buttonMatchState[[buttonState[1] intValue] - 1] = [NSNumber numberWithBool:YES];
 				
 				if (matchedButtons == [buttonOutlets count])
 				{
-					// Make sure both timers are dead.
-					// TODO: put this code in an instance method...
-					if (previewTimer != nil)
-					{
-						[previewTimer invalidate];
-						previewTimer = nil;
-					}
+					
+					// TODO:
+					// 1. pause game timer
+					
+					// TODO: put in pauseGame() method
 					if (gameTimer != nil)
 					{
 						[gameTimer invalidate];
 						gameTimer = nil;
 					}
 					
-					// Display an alert to show that the game is over
-					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner!"
-																	message:[[NSString alloc] initWithFormat: @"Score: %d", score]
-																   delegate:nil
-														  cancelButtonTitle:@"Play Again"
-														  otherButtonTitles:nil];
-					[alert show];
+					// 2. pick new game pieces and put them on the board
+					// 3. enter preview mode
+					// 4. continue game
+					
+					// Make sure both timers are dead.
+					// TODO: put this code in an instance method...
+//					if (previewTimer != nil)
+//					{
+//						[previewTimer invalidate];
+//						previewTimer = nil;
+//					}
+//					if (gameTimer != nil)
+//					{
+//						[gameTimer invalidate];
+//						gameTimer = nil;
+//					}
+					
+//					// Display an alert to show that the game is over
+//					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner!"
+//																	message:[[NSString alloc] initWithFormat: @"Score: %d", score]
+//																   delegate:nil
+//														  cancelButtonTitle:@"Play Again"
+//														  otherButtonTitles:nil];
+//					[alert show];
 				}
 			}
 			else
 			{
+				// Incorrect guess, decrement the score
+				score = score - 1;
+				[self updateScore];
+				
 				[buttonOutlets[[buttonState[0] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
-				[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
+				[buttonOutlets[[buttonState[0] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
 				[buttonOutlets[[buttonState[1] intValue] - 1] setTitle:@"?" forState: UIControlStateNormal];
-				[buttonOutlets[[buttonState[numActiveButtons] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
+				[buttonOutlets[[buttonState[1] intValue] - 1] setBackgroundColor:[UIColor clearColor]];
 			}
 		}
 	}
@@ -422,18 +526,18 @@ numberOfRowsInComponent:(NSInteger)component
 	numActiveButtons = 0;
 	
 	// TODO: invoke the population code here...
-	[hiddenFields addObject:@"1"];
-	[hiddenFields addObject:@"1"];
-	[hiddenFields addObject:@"2"];
-	[hiddenFields addObject:@"2"];
-	[hiddenFields addObject:@"3"];
-	[hiddenFields addObject:@"3"];
-	[hiddenFields addObject:@"4"];
-	[hiddenFields addObject:@"4"];
-	[hiddenFields addObject:@"5"];
-	[hiddenFields addObject:@"5"];
-	[hiddenFields addObject:@"6"];
-	[hiddenFields addObject:@"6"];
+//	[hiddenFields addObject:@"1"];
+//	[hiddenFields addObject:@"1"];
+//	[hiddenFields addObject:@"2"];
+//	[hiddenFields addObject:@"2"];
+//	[hiddenFields addObject:@"3"];
+//	[hiddenFields addObject:@"3"];
+//	[hiddenFields addObject:@"4"];
+//	[hiddenFields addObject:@"4"];
+//	[hiddenFields addObject:@"5"];
+//	[hiddenFields addObject:@"5"];
+//	[hiddenFields addObject:@"6"];
+//	[hiddenFields addObject:@"6"];
 	
 	// Associate pairs of buttons
 	buttonPairMap = [[NSMutableDictionary alloc] init];
@@ -465,18 +569,23 @@ numberOfRowsInComponent:(NSInteger)component
 	[answerFields addObject:@"3+3"];
 	
 	// Set the button titles appropriately
-	[button1_out setTitle:answerFields[0] forState: UIControlStateNormal];
-	[button2_out setTitle:answerFields[1] forState: UIControlStateNormal];
-	[button3_out setTitle:answerFields[2] forState: UIControlStateNormal];
-	[button4_out setTitle:answerFields[3] forState: UIControlStateNormal];
-	[button5_out setTitle:answerFields[4] forState: UIControlStateNormal];
-	[button6_out setTitle:answerFields[5] forState: UIControlStateNormal];
-	[button7_out setTitle:answerFields[6] forState: UIControlStateNormal];
-	[button8_out setTitle:answerFields[7] forState: UIControlStateNormal];
-	[button9_out setTitle:answerFields[8] forState: UIControlStateNormal];
-	[button10_out setTitle:answerFields[9] forState: UIControlStateNormal];
-	[button11_out setTitle:answerFields[10] forState: UIControlStateNormal];
-	[button12_out setTitle:answerFields[11] forState: UIControlStateNormal];
+	for (int i = 0; i < 12; i++)
+	{
+		[buttonOutlets[i] setTitle:answerFields[i] forState:UIControlStateNormal];
+		[buttonOutlets[i] setEnabled:YES];
+	}
+//	[button1_out setTitle:answerFields[0] forState: UIControlStateNormal];
+//	[button2_out setTitle:answerFields[1] forState: UIControlStateNormal];
+//	[button3_out setTitle:answerFields[2] forState: UIControlStateNormal];
+//	[button4_out setTitle:answerFields[3] forState: UIControlStateNormal];
+//	[button5_out setTitle:answerFields[4] forState: UIControlStateNormal];
+//	[button6_out setTitle:answerFields[5] forState: UIControlStateNormal];
+//	[button7_out setTitle:answerFields[6] forState: UIControlStateNormal];
+//	[button8_out setTitle:answerFields[7] forState: UIControlStateNormal];
+//	[button9_out setTitle:answerFields[8] forState: UIControlStateNormal];
+//	[button10_out setTitle:answerFields[9] forState: UIControlStateNormal];
+//	[button11_out setTitle:answerFields[10] forState: UIControlStateNormal];
+//	[button12_out setTitle:answerFields[11] forState: UIControlStateNormal];
 	
 	// Update the time/score labels
 	previewTime = PREVIEW_TIME_LIMIT;
@@ -536,16 +645,61 @@ numberOfRowsInComponent:(NSInteger)component
 	}
 }
 
-- (IBAction)modeButton:(id)sender {
-	NSLog(@"Mode button pressed - does nothing yet...");
-	modePicker.hidden = NO;
+//- (IBAction)modeButton:(id)sender {
+//	NSLog(@"Mode button pressed - does nothing yet...");
+//	modePicker.hidden = NO;
+//}
+
+- (IBAction)cheatButtonDown:(id)sender {
+	NSLog(@"Cheat button pressed down - does nothing yet...");
+	
+	// Set the button titles appropriately
+	[button1_out setTitle:answerFields[0] forState: UIControlStateNormal];
+	[button2_out setTitle:answerFields[1] forState: UIControlStateNormal];
+	[button3_out setTitle:answerFields[2] forState: UIControlStateNormal];
+	[button4_out setTitle:answerFields[3] forState: UIControlStateNormal];
+	[button5_out setTitle:answerFields[4] forState: UIControlStateNormal];
+	[button6_out setTitle:answerFields[5] forState: UIControlStateNormal];
+	[button7_out setTitle:answerFields[6] forState: UIControlStateNormal];
+	[button8_out setTitle:answerFields[7] forState: UIControlStateNormal];
+	[button9_out setTitle:answerFields[8] forState: UIControlStateNormal];
+	[button10_out setTitle:answerFields[9] forState: UIControlStateNormal];
+	[button11_out setTitle:answerFields[10] forState: UIControlStateNormal];
+	[button12_out setTitle:answerFields[11] forState: UIControlStateNormal];
 }
 
-- (IBAction)cheatButton:(id)sender {
-	NSLog(@"Cheat button pressed - does nothing yet...");	
+- (IBAction)cheatButtonUp:(id)sender {
+	NSLog(@"Cheat button left up - does nothing yet...");
+	
+	// Set the button titles appropriately
+	for (int i = 0; i < 12; i++)
+	{
+		if (buttonMatchState[i] == [NSNumber numberWithBool:NO])
+		{
+			NSLog(@"False!");
+			[buttonOutlets[i] setTitle:@"?" forState: UIControlStateNormal];
+		}
+		else
+		{
+			NSLog(@"True! Match! Keep answer");
+			[buttonOutlets[i] setTitle:answerFields[i] forState: UIControlStateNormal];
+		}
+	}
+//	[button1_out setTitle:answerFields[0] forState: UIControlStateNormal];
+//	[button2_out setTitle:answerFields[1] forState: UIControlStateNormal];
+//	[button3_out setTitle:answerFields[2] forState: UIControlStateNormal];
+//	[button4_out setTitle:answerFields[3] forState: UIControlStateNormal];
+//	[button5_out setTitle:answerFields[4] forState: UIControlStateNormal];
+//	[button6_out setTitle:answerFields[5] forState: UIControlStateNormal];
+//	[button7_out setTitle:answerFields[6] forState: UIControlStateNormal];
+//	[button8_out setTitle:answerFields[7] forState: UIControlStateNormal];
+//	[button9_out setTitle:answerFields[8] forState: UIControlStateNormal];
+//	[button10_out setTitle:answerFields[9] forState: UIControlStateNormal];
+//	[button11_out setTitle:answerFields[10] forState: UIControlStateNormal];
+//	[button12_out setTitle:answerFields[11] forState: UIControlStateNormal];
 }
 
-- (IBAction)optionsButton:(id)sender:(id)sender {
+- (IBAction)optionsButton:(id)sender {
 //	[self presentViewController:optionsController animated:YES completion:nil];
 	[self.view addSubview:optionsController.view];
 }
