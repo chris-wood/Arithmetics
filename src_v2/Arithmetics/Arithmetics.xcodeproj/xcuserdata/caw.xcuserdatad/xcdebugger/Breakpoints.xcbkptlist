@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Arithmetics/ArithmeticsViewController.m"
-         timestampString = "399661915.368027"
+         timestampString = "399749698.898652"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "478"
-         endingLineNumber = "478"
+         startingLineNumber = "573"
+         endingLineNumber = "573"
          landmarkName = "-startButton:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -105,6 +105,32 @@
          startingLineNumber = "76"
          endingLineNumber = "76"
          landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Arithmetics/ArithmeticsViewController.m"
+         timestampString = "399749698.898652"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "641"
+         endingLineNumber = "641"
+         landmarkName = "-startButton:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Arithmetics/ArithmeticsViewController.m"
+         timestampString = "399749698.898652"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "642"
+         endingLineNumber = "642"
+         landmarkName = "-startButton:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

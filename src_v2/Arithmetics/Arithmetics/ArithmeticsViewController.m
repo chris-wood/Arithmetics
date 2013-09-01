@@ -147,9 +147,10 @@ numberOfRowsInComponent:(NSInteger)component
 	
 	int count = 0;
 	NSMutableArray* targets = [[NSMutableArray alloc] init]; // value that each button equates to
+	NSMutableArray* buttonAssignment = [[NSMutableArray alloc] init];
 	while (count < 6) // MAGIC NUMBER
 	{
-		int randNum = rand() % max;
+		int randNum = (rand() % max) + 1;
 		bool found = false;
 		for (int i = 0; i < [targets count]; i++)
 		{
@@ -158,19 +159,81 @@ numberOfRowsInComponent:(NSInteger)component
 				found = true;
 			}
 		}
+		NSLog(@"Checking for repetition");
 		if (found == false)
 		{
+			NSLog([NSString stringWithFormat:@"Creating pair #%d", count]);
 			[targets addObject:[NSNumber numberWithInt:randNum]];
 			
 			// Pick four different numbers and operations and work backwards...
-			NSMutableArray* operands = [[NSMutableArray alloc] init];
-			int r1 = rand() % max;
-			int r2 = rand() % max;
-			int r3 = rand() % max;
-			int r4 = rand() % max;
+//			NSMutableArray* operands = [[NSMutableArray alloc] init];
+			int r1 = (rand() % max) + 1;
+			int r2 = (rand() % max) + 1;
+			while (r1 == r2)
+			{
+				r2 = (rand() % max) + 1;
+			}
+			int r1x = randNum - r1;
+			int r2x = randNum - r2;
 			
+			// Assign button locations and the strings to go with them
+			// Pick a button location, check to see if it's in our list so far, and then continue
+			int buttonId1 = 0;
+			bool alreadyPicked = true;
+			while (alreadyPicked)
+			{
+				buttonId1 = rand() % 12;
+				bool foundMatch = false;
+				for (int i = 0; i < [buttonAssignment count]; i++)
+				{
+					if (buttonAssignment[i] == [[NSNumber alloc] initWithInt:buttonId1])
+					{
+						foundMatch = true;
+					}
+				}
+				if (!foundMatch)
+				{
+					alreadyPicked = false;
+				}
+			}
 			
+			NSLog(@"Found place for button 1");
 			
+			// Set this button information
+			[buttonAssignment addObject:[[NSNumber alloc] initWithInt:buttonId1]];
+			int buttonId2 = 0;
+			alreadyPicked = true;
+			while (alreadyPicked)
+			{
+				buttonId2 = rand() % 12;
+				bool foundMatch = false;
+				for (int i = 0; i < [buttonAssignment count]; i++)
+				{
+					if (buttonAssignment[i] == [[NSNumber alloc] initWithInt:buttonId2])
+					{
+						foundMatch = true;
+					}
+				}
+				if (!foundMatch)
+				{
+					alreadyPicked = false;
+				}
+			}
+			
+			NSLog(@"Found place for button 2");
+			
+			// Set this button information
+			[buttonAssignment addObject:[[NSNumber alloc] initWithInt:buttonId2]];
+			
+			// Tie the buttons together...
+			[buttonPairMap setObject:[NSNumber numberWithInt:buttonId1] forKey:[NSNumber numberWithInt:buttonId2]];
+			[buttonPairMap setObject:[NSNumber numberWithInt:buttonId2] forKey:[NSNumber numberWithInt:buttonId1]];
+			
+			// Set the answer text fields...
+			answerFields[buttonId1] = [NSString stringWithFormat:@"%d + %d", r1, r1x];
+			answerFields[buttonId2] = [NSString stringWithFormat:@"%d + %d", r2, r2x];
+			
+			// Bump up the count - number of buttons we've satisfied so far
 			count = count + 1;
 		}
 	}
@@ -541,32 +604,29 @@ numberOfRowsInComponent:(NSInteger)component
 	
 	// Associate pairs of buttons
 	buttonPairMap = [[NSMutableDictionary alloc] init];
-	[buttonPairMap setObject:[NSNumber numberWithInt:2] forKey:[NSNumber numberWithInt:1]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:1] forKey:[NSNumber numberWithInt:2]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:4] forKey:[NSNumber numberWithInt:3]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:3] forKey:[NSNumber numberWithInt:4]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:6] forKey:[NSNumber numberWithInt:5]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:5] forKey:[NSNumber numberWithInt:6]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:8] forKey:[NSNumber numberWithInt:7]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:7] forKey:[NSNumber numberWithInt:8]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:10] forKey:[NSNumber numberWithInt:9]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:9] forKey:[NSNumber numberWithInt:10]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:12] forKey:[NSNumber numberWithInt:11]];
-	[buttonPairMap setObject:[NSNumber numberWithInt:11] forKey:[NSNumber numberWithInt:12]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:2] forKey:[NSNumber numberWithInt:1]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:1] forKey:[NSNumber numberWithInt:2]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:4] forKey:[NSNumber numberWithInt:3]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:3] forKey:[NSNumber numberWithInt:4]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:6] forKey:[NSNumber numberWithInt:5]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:5] forKey:[NSNumber numberWithInt:6]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:8] forKey:[NSNumber numberWithInt:7]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:7] forKey:[NSNumber numberWithInt:8]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:10] forKey:[NSNumber numberWithInt:9]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:9] forKey:[NSNumber numberWithInt:10]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:12] forKey:[NSNumber numberWithInt:11]];
+//	[buttonPairMap setObject:[NSNumber numberWithInt:11] forKey:[NSNumber numberWithInt:12]];
 	
 	// And the corresponding answers...
-	[answerFields addObject:@"0+1"];
-	[answerFields addObject:@"1+0"];
-	[answerFields addObject:@"1+1"];
-	[answerFields addObject:@"3-1"];
-	[answerFields addObject:@"2+1"];
-	[answerFields addObject:@"3+0"];
-	[answerFields addObject:@"2+2"];
-	[answerFields addObject:@"3+1"];
-	[answerFields addObject:@"4+1"];
-	[answerFields addObject:@"3+2"];
-	[answerFields addObject:@"5+1"];
-	[answerFields addObject:@"3+3"];
+	answerFields = [[NSMutableArray alloc] init];
+	for (int i = 0; i < 12; i++)
+	{
+		[answerFields addObject:@"TMP"];
+	}
+	
+	// BRANCH ON THE TYPE OF GAME HERE - fix normal generation for testing purposes.
+	[self normalGen:16];
+	NSLog(@"Returned from normal generation...");
 	
 	// Set the button titles appropriately
 	for (int i = 0; i < 12; i++)
@@ -574,18 +634,6 @@ numberOfRowsInComponent:(NSInteger)component
 		[buttonOutlets[i] setTitle:answerFields[i] forState:UIControlStateNormal];
 		[buttonOutlets[i] setEnabled:YES];
 	}
-//	[button1_out setTitle:answerFields[0] forState: UIControlStateNormal];
-//	[button2_out setTitle:answerFields[1] forState: UIControlStateNormal];
-//	[button3_out setTitle:answerFields[2] forState: UIControlStateNormal];
-//	[button4_out setTitle:answerFields[3] forState: UIControlStateNormal];
-//	[button5_out setTitle:answerFields[4] forState: UIControlStateNormal];
-//	[button6_out setTitle:answerFields[5] forState: UIControlStateNormal];
-//	[button7_out setTitle:answerFields[6] forState: UIControlStateNormal];
-//	[button8_out setTitle:answerFields[7] forState: UIControlStateNormal];
-//	[button9_out setTitle:answerFields[8] forState: UIControlStateNormal];
-//	[button10_out setTitle:answerFields[9] forState: UIControlStateNormal];
-//	[button11_out setTitle:answerFields[10] forState: UIControlStateNormal];
-//	[button12_out setTitle:answerFields[11] forState: UIControlStateNormal];
 	
 	// Update the time/score labels
 	previewTime = PREVIEW_TIME_LIMIT;
@@ -595,9 +643,6 @@ numberOfRowsInComponent:(NSInteger)component
 	[timeField setText:intString];
 	intString = [NSString stringWithFormat:@"Score: 0"];
 	[scoreField setText:intString];
-	
-	// old timer code
-//	previewTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(previewTick:) userInfo:nil repeats:YES];
 	
 	//	Start the timer to fire every one second
 	previewTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(previewTick:) userInfo:nil repeats:YES];
