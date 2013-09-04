@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ArithmeticsOptionsViewController.h"
 
+// enum for game mode
+typedef enum { NORMAL_MODE, MODULAR_MODE, FRACTION_MODE, COMPLEX_MODE } GameMode;
+
 @interface ArithmeticsViewController : UIViewController <UIPickerViewDelegate>
 {
 	// The model objects
@@ -22,6 +25,7 @@
 	int numActiveButtons;
 	int activeButtonLimit;
 	int matchedButtons;
+	int maxButtonValue;
 	
 	// The view objects
 	IBOutlet UILabel *modeField;
@@ -47,15 +51,20 @@
 	IBOutlet UIButton *button10_out;
 	IBOutlet UIButton *button11_out;
 	IBOutlet UIButton *button12_out;
+	IBOutlet UIButton *cheatButton_out;
 	
 	// Timer for the game (there is no time limit)
 	NSTimer *previewTimer;
 	NSTimer *gameTimer;
+	NSTimer *cheatTimer;
 	int gameTime;
 	int previewTime;
 	int	PREVIEW_TIME_LIMIT;
 	int GAME_TIME_LIMIT;
 	int score;
+	
+	// enum to specify the mode we're in
+	GameMode currentGameMode;
 }
 
 //@property (strong, nonatomic) IBOutlet UIPickerView *modePicker;

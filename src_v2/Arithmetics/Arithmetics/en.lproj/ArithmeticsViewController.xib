@@ -362,7 +362,6 @@
 						<string key="NSFrame">{{99, 118}, {128, 21}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -689,6 +688,14 @@
 						<reference key="destination" ref="321579702"/>
 					</object>
 					<int key="connectionID">596</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">cheatButton_out</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="119029922"/>
+					</object>
+					<int key="connectionID">1015</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1054,7 +1061,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1014</int>
+			<int key="maxID">1015</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1168,6 +1175,7 @@
 						<string key="button7_out">UIButton</string>
 						<string key="button8_out">UIButton</string>
 						<string key="button9_out">UIButton</string>
+						<string key="cheatButton_out">UIButton</string>
 						<string key="modeField">UILabel</string>
 						<string key="modePicker">UIPickerView</string>
 						<string key="previewTimeField">UILabel</string>
@@ -1221,6 +1229,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="button9_out">
 							<string key="name">button9_out</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cheatButton_out">
+							<string key="name">cheatButton_out</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="modeField">
