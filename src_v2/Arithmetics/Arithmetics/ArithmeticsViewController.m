@@ -14,6 +14,21 @@
 
 @implementation ArithmeticsViewController
 
+// Synthesize the properties of this interface
+@synthesize button1_out;
+@synthesize button2_out;
+@synthesize button3_out;
+@synthesize button4_out;
+@synthesize button5_out;
+@synthesize button6_out;
+@synthesize button7_out;
+@synthesize button8_out;
+@synthesize button9_out;
+@synthesize button10_out;
+@synthesize button11_out;
+@synthesize button12_out;
+@synthesize cheatButton_out;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -88,6 +103,7 @@
 	buttonMatchState = [[NSMutableArray alloc] init];
 	for (int i = 0; i < 12; i++)
 	{
+//		[buttonOutlets[i] initLayers];
 		[buttonPressState addObject:[NSNumber numberWithBool:NO]];
 		[buttonMatchState addObject:[NSNumber numberWithBool:NO]];
 	}

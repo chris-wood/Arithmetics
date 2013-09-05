@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ArithmeticsOptionsViewController.h"
+#import "GradientButton.h"
 
 // enum for game mode
 typedef enum { NORMAL_MODE, MODULAR_MODE, FRACTION_MODE, COMPLEX_MODE } GameMode;
@@ -39,19 +40,19 @@ typedef enum { NORMAL_MODE, MODULAR_MODE, FRACTION_MODE, COMPLEX_MODE } GameMode
 	ArithmeticsOptionsViewController* optionsController;
 	
 	// Button outlets
-	IBOutlet UIButton *button1_out;
-	IBOutlet UIButton *button2_out;
-	IBOutlet UIButton *button3_out;
-	IBOutlet UIButton *button4_out;
-	IBOutlet UIButton *button5_out;
-	IBOutlet UIButton *button6_out;
-	IBOutlet UIButton *button7_out;
-	IBOutlet UIButton *button8_out;
-	IBOutlet UIButton *button9_out;
-	IBOutlet UIButton *button10_out;
-	IBOutlet UIButton *button11_out;
-	IBOutlet UIButton *button12_out;
-	IBOutlet UIButton *cheatButton_out;
+//	IBOutlet GradientButton *button1_out;
+//	IBOutlet GradientButton *button2_out;
+//	IBOutlet GradientButton *button3_out;
+//	IBOutlet GradientButton *button4_out;
+//	IBOutlet GradientButton *button5_out;
+//	IBOutlet GradientButton *button6_out;
+//	IBOutlet GradientButton *button7_out;
+//	IBOutlet GradientButton *button8_out;
+//	IBOutlet GradientButton *button9_out;
+//	IBOutlet GradientButton *button10_out;
+//	IBOutlet GradientButton *button11_out;
+//	IBOutlet GradientButton *button12_out;
+//	IBOutlet GradientButton *cheatButton_out;
 	
 	// Timer for the game (there is no time limit)
 	NSTimer *previewTimer;
@@ -66,6 +67,20 @@ typedef enum { NORMAL_MODE, MODULAR_MODE, FRACTION_MODE, COMPLEX_MODE } GameMode
 	// enum to specify the mode we're in
 	GameMode currentGameMode;
 }
+
+@property (nonatomic, strong) IBOutlet GradientButton *button1_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button2_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button3_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button4_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button5_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button6_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button7_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button8_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button9_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button10_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button11_out;
+@property (nonatomic, strong) IBOutlet GradientButton *button12_out;
+@property (nonatomic, strong) IBOutlet GradientButton *cheatButton_out;
 
 //@property (strong, nonatomic) IBOutlet UIPickerView *modePicker;
 
